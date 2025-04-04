@@ -1,6 +1,0 @@
-{
-    "folders": [{"path": "."}],
-    "extensions": {
-        "unwantedRecommendations": ["spgoding.datapack-language-server"]
-    }
-}
