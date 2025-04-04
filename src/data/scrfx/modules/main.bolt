@@ -1,0 +1,5 @@
+function scrfx:zinternals/load: 
+    function scrfx:registry
+
+function scrfx:zinternals/test:
+    title @s title {"text":"hahaha"}

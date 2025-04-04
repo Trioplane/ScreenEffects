@@ -1,0 +1,13 @@
+{
+    "providers": [
+      {
+        "type": "bitmap",
+        "file": "trplnr:font/scrfx/test0.png",
+        "height": 256,
+        "ascent": 128,
+        "chars": [
+          "\uE000"
+        ]
+      }
+    ]
+  }
