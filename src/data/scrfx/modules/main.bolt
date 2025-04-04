@@ -1,4 +1,6 @@
-function scrfx:zinternals/load: 
+function scrfx:zinternals/load:
+    scoreboard objectives add scrfx.zinternals.globals dummy
+    scoreboard players set .loaded scrfx.zinternals.globals 1
     function scrfx:registry
 
 function scrfx:zinternals/test:
