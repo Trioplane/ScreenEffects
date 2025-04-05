@@ -3,3 +3,5 @@
 *.beet_cache
 build/
 deno.lock
+modrinth.md
+smithed.md
