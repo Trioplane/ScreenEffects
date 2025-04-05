@@ -1,3 +1,9 @@
 append function_tag minecraft:load {
+    "replace": false,
     "values": [ "scrfx:zinternals/load" ]
+}
+
+append function_tag minecraft:tick {
+    "replace": false,
+    "values": [ "scrfx:zinternals/tick" ]
 }

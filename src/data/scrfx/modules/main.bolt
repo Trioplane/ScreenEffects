@@ -1,7 +1,66 @@
 function scrfx:zinternals/load:
-    scoreboard objectives add scrfx.zinternals.globals dummy
-    scoreboard players set .loaded scrfx.zinternals.globals 1
+    function scrfx:zinternals/initialize/scoreboards
     function scrfx:registry
+    scoreboard players set .loaded scrfx.zinternals.globals 1
+    execute if score .dev_mode scrfx.zinternals.globals matches 1 run say Reloaded.
 
-function scrfx:zinternals/test:
-    title @s title {"text":"hahaha"}
+function scrfx:zinternals/tick:
+    execute as @a[tag=!scrfx.player.init] run function scrfx:zinternals/tick/set_player_id:
+        execute store result score @s scrfx.zinternals.player_id run scoreboard players add .next_player_id scrfx.zinternals.globals 1
+        tag @s add scrfx.player.init
+
+    execute as @a if score @s scrfx.zinternals.player.is_running_screen_effect matches 1 run function scrfx:zinternals/tick/tick_screen_effect:
+        execute if score @s scrfx.zinternals.player.current_frame = @s scrfx.zinternals.player.frame_count run return:
+            scoreboard players set @s scrfx.zinternals.player.is_running_screen_effect 0
+            execute store result storage scrfx:zinternals temp.to_end.player_id int 1 run scoreboard players get @s scrfx.zinternals.player_id
+            function scrfx:zinternals/clear_running_screen_effect with storage scrfx:zinternals temp.to_end
+        execute if score @s scrfx.zinternals.player.ticks_left matches 0:
+            function scrfx:zinternals/show_title
+
+            scoreboard players operation @s scrfx.zinternals.player.ticks_left = @s scrfx.zinternals.player.tps
+            scoreboard players add @s scrfx.zinternals.player.current_frame 1
+        execute if score @s scrfx.zinternals.player.ticks_left matches 1.. run scoreboard players remove @s scrfx.zinternals.player.ticks_left 1
+
+function scrfx:play:
+    execute store result storage scrfx:zinternals temp.to_play.player_id int 1 run scoreboard players get @s scrfx.zinternals.player_id
+    data modify storage scrfx:zinternals temp.to_play.screen_effect_id set from storage scrfx:in id
+    function scrfx:zinternals/clear_running_screen_effect with storage scrfx:zinternals temp.to_play
+    function scrfx:zinternals/set_running_screen_effect with storage scrfx:zinternals temp.to_play
+    scoreboard players set @s scrfx.zinternals.player.is_running_screen_effect 1
+
+function scrfx:zinternals/set_running_screen_effect:
+    $execute unless data storage scrfx:registry screen_effects."$(screen_effect_id)" run return run function scrfx:zinternals/errors/screen_effect_not_found {id: "$(screen_effect_id)"}
+
+    $data modify storage scrfx:running_screen_effects "$(player_id)" set from storage scrfx:registry screen_effects."$(screen_effect_id)"
+    $execute store result score @s scrfx.zinternals.player.tps run data get storage scrfx:running_screen_effects "$(player_id)".tps
+    $execute store result score @s scrfx.zinternals.player.frame_count run data get storage scrfx:running_screen_effects "$(player_id)".frame_count
+
+    scoreboard players operation @s scrfx.zinternals.player.title_time = @s scrfx.zinternals.player.tps
+    $execute store result storage scrfx:running_screen_effects "$(player_id)".title_time int 1 run scoreboard players add @s scrfx.zinternals.player.title_time 2
+    scoreboard players set @s scrfx.zinternals.player.ticks_left 0
+    
+    $function scrfx:zinternals/set_title_time with storage scrfx:running_screen_effects "$(player_id)"
+
+function scrfx:zinternals/clear_running_screen_effect:
+    scoreboard players reset @s scrfx.zinternals.player.tps
+    scoreboard players reset @s scrfx.zinternals.player.frame_count
+    scoreboard players reset @s scrfx.zinternals.player.current_frame
+    scoreboard players reset @s scrfx.zinternals.player.ticks_left
+    scoreboard players reset @s scrfx.zinternals.player.title_time
+
+    $data remove storage scrfx:running_screen_effects "$(player_id)"
+
+function scrfx:zinternals/set_title_time:
+    $title @s times 0 $(title_time)t 0
+
+function scrfx:zinternals/show_title:
+    execute store result storage scrfx:zinternals temp.current_screen_effect_frame.player_id int 1 run scoreboard players get @s scrfx.zinternals.player_id
+    function scrfx:zinternals/show_title/get_current_frame_data with storage scrfx:zinternals temp.current_screen_effect_frame
+    function scrfx:zinternals/show_title/display with storage scrfx:zinternals temp.current_screen_effect_frame
+
+function scrfx:zinternals/show_title/get_current_frame_data:
+    $data modify storage scrfx:zinternals temp.current_screen_effect_frame.path set from storage scrfx:running_screen_effects "$(player_id)".path
+    execute store result storage scrfx:zinternals temp.current_screen_effect_frame.frame int 1 run scoreboard players get @s scrfx.zinternals.player.current_frame
+
+function scrfx:zinternals/show_title/display:
+    $title @s title {"text":"\uE000","font":"$(path)$(frame)","shadow_color":[0f,0f,0f,0f]}

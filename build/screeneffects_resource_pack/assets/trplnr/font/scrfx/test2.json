@@ -4,7 +4,7 @@
         "type": "bitmap",
         "file": "trplnr:font/scrfx/test2.png",
         "height": 256,
-        "ascent": 128,
+        "ascent": -2000,
         "chars": [
           "\uE000"
         ]

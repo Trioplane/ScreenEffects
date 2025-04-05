@@ -1,4 +1,7 @@
 {
+    "name": "ScreenEffects",
+    "description": "A small flexible library for showing animated screen overlays to the user.",
+    "author": "Trplnr",
     "require": ["bolt"],
     "data_pack": {
       "load": ["./src"]

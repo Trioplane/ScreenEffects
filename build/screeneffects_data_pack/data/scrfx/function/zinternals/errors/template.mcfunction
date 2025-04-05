@@ -1,0 +1,1 @@
+$tellraw @a [ {"text":"\n",shadow_color:[0.15f,0f,0f,1f]}, {"text":"[","color":"gray"}, {"text":"ScreenEffects","color":"gold"}, {"text":"] ","color":"gray"}, {"text":"ERROR","color":"dark_red","underlined":true}, {"text":" ->","color":"red","underlined":false}, {"text":"\n"}, $(message), {"text":"\n"}, ]
