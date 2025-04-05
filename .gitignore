@@ -1,4 +1,5 @@
 *.code-workspace
 *.venv
 *.beet_cache
+build/
 deno.lock
