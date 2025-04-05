@@ -20,7 +20,7 @@ A small flexible library for showing animated screen overlays to the user.
 </a>
 
 ## Examples:
-[![Watch the video](https://img.youtube.com/vi/J5cWNG-nL1w/default.jpg)](https://youtu.be/J5cWNG-nL1w)
+[![Watch the video](https://img.youtube.com/vi/J5cWNG-nL1w/maxresdefault.jpg)](https://youtu.be/J5cWNG-nL1w)
 
 ## How to use:
 ### Making Screen Effects using the builder Deno file:
