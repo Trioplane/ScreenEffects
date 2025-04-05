@@ -7,7 +7,7 @@ A small flexible library for showing animated screen overlays to the user.
 <a href="https://modrinth.com/datapack/screeneffects">
     <img width="300" src="./repository/images/download-on-modrinth.png">
 </a>
-<a href="https://smithed.net/packs/screeneffects">
+<a href="https://smithed.net/packs/screen-effects">
     <img width="300" src="./repository/images/download-on-smithed.png">
 </a>
 
