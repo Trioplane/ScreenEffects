@@ -8,9 +8,13 @@ raw f"#"
 raw f"# \"ns:identifier\" - The identifier of the screen effect, the namespace is optional but recommended to be compatible with other packs."
 raw f"# `tps` - The frametime / fps of the screen effect, but in ticks. (1 second = 20 ticks)"
 raw f"# `frame_count` - How much frames the screen effect has."
+raw f"# `middle.frame` - Points to what frame the declared 'middle' is. This is useful for transition animations like tping the player when the screen is fully covered."
+raw f"# `middle.callback` - The command to run when the 'middle' frame is ran."
+raw f"# `end.callback` - The command to run when the 'end' frame is ran. This does not have a 'frame' property, this already runs once the animation ends."
 raw f"# `path` - The resource path of the font file with the number at the end omitted."
 
 data modify storage scrfx:registry screen_effects merge value { \
-    "trplnr:test": { tps: 20, frame_count: 5, path: "trplnr:scrfx/test" }, \
-    "trplnr:draw_transition": { tps: 1, frame_count: 19, middle: { frame: 10 }, end: { callback: "say end" }, path: "trplnr:scrfx/draw_transition" }, \
+    "examples:toast": { tps: 1, frame_count: 31, path: "example:scrfx/exampletoast" }, \
+    "examples:amongus": { tps: 1, frame_count: 24, middle: { frame: 12, callback: "kill @s" }, path: "example:scrfx/exampleamongus" }, \
+    "examples:draw_transition": { tps: 1, frame_count: 19, path: "example:scrfx/draw_transition" }, \
 }

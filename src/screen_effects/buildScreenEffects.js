@@ -1,6 +1,8 @@
+import { ensureDir } from "https://deno.land/std@0.181.0/fs/ensure_dir.ts";
+
 // -------------CONFIGS---------------
 // Replace with the namespace you use!
-const NAMESPACE = "trplnr";
+const NAMESPACE = "example";
 
 // If you want the font JSON files to be formatted, make this boolean true.
 const prettyPrintFontFiles = false;
@@ -19,6 +21,9 @@ const PATHS = {
     font_files: `../assets/${NAMESPACE}/font/scrfx`,
     textures: `../assets/${NAMESPACE}/textures/font/scrfx`,
 };
+
+ensureDir(PATHS.font_files)
+ensureDir(PATHS.textures)
 
 console.log(`🟡 Compiling screen effects.`)
 
