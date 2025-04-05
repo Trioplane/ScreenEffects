@@ -12,4 +12,5 @@ raw f"# `path` - The resource path of the font file with the number at the end o
 
 data modify storage scrfx:registry screen_effects merge value { \
     "trplnr:test": { tps: 20, frame_count: 5, path: "trplnr:scrfx/test" }, \
+    "trplnr:draw_transition": { tps: 1, frame_count: 19, middle: { frame: 10 }, end: { callback: "say end" }, path: "trplnr:scrfx/draw_transition" }, \
 }

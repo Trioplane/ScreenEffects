@@ -1,0 +1,1 @@
+$function scrfx:zinternals/errors/template {message:{text:"No callback property exists for the '$(frame)' frame of the currently running screen effect. Did you forget to add a `callback` property to the said screen effect in `scrfx:registry`?",color:"red"}}

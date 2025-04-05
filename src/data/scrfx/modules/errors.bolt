@@ -1,6 +1,6 @@
 function scrfx:zinternals/errors/template:
     $tellraw @a [ \
-        {"text":"\n",shadow_color:[0.15f,0f,0f,1f]}, \
+        {"text":"\n"}, \
         {"text":"[","color":"gray"}, \
         {"text":"ScreenEffects","color":"gold"}, \
         {"text":"] ","color":"gray"}, \
@@ -12,4 +12,7 @@ function scrfx:zinternals/errors/template:
     ]
 
 function scrfx:zinternals/errors/screen_effect_not_found:
-    $function scrfx:zinternals/errors/template {message:{text:"Screen effect '$(id)' does not exist. Did you register the screen effect in `scrfx:registy` yet?",color:"red"}}
+    $function scrfx:zinternals/errors/template {message:{text:"Screen effect '$(id)' does not exist. Did you register the screen effect in `scrfx:registry` yet?",color:"red"}}
+
+function scrfx:zinternals/errors/callback_not_found:
+    $function scrfx:zinternals/errors/template {message:{text:"No callback property exists for the '$(frame)' frame of the currently running screen effect. Did you forget to add a `callback` property to the said screen effect in `scrfx:registry`?",color:"red"}}

@@ -13,9 +13,20 @@ function scrfx:zinternals/tick:
         execute if score @s scrfx.zinternals.player.current_frame = @s scrfx.zinternals.player.frame_count run return:
             scoreboard players set @s scrfx.zinternals.player.is_running_screen_effect 0
             execute store result storage scrfx:zinternals temp.to_end.player_id int 1 run scoreboard players get @s scrfx.zinternals.player_id
+
+            execute if score @s scrfx.zinternals.player.has_end_callback matches 1:
+                data modify storage scrfx:zinternals temp.to_run_callback.player_id set from storage scrfx:zinternals temp.to_end.player_id
+                data modify storage scrfx:zinternals temp.to_run_callback.frame set value "end"
+                function scrfx:zinternals/run_callback with storage scrfx:zinternals temp.to_run_callback
+
             function scrfx:zinternals/clear_running_screen_effect with storage scrfx:zinternals temp.to_end
         execute if score @s scrfx.zinternals.player.ticks_left matches 0:
             function scrfx:zinternals/show_title
+
+            execute if score @s scrfx.zinternals.player.current_frame = @s scrfx.zinternals.player.middle_frame:
+                execute store result storage scrfx:zinternals temp.to_run_callback.player_id int 1 run scoreboard players get @s scrfx.zinternals.player_id
+                data modify storage scrfx:zinternals temp.to_run_callback.frame set value "middle"
+                function scrfx:zinternals/run_callback with storage scrfx:zinternals temp.to_run_callback
 
             scoreboard players operation @s scrfx.zinternals.player.ticks_left = @s scrfx.zinternals.player.tps
             scoreboard players add @s scrfx.zinternals.player.current_frame 1
@@ -34,6 +45,8 @@ function scrfx:zinternals/set_running_screen_effect:
     $data modify storage scrfx:running_screen_effects "$(player_id)" set from storage scrfx:registry screen_effects."$(screen_effect_id)"
     $execute store result score @s scrfx.zinternals.player.tps run data get storage scrfx:running_screen_effects "$(player_id)".tps
     $execute store result score @s scrfx.zinternals.player.frame_count run data get storage scrfx:running_screen_effects "$(player_id)".frame_count
+    $execute if data storage scrfx:running_screen_effects "$(player_id)".middle.frame store result score @s scrfx.zinternals.player.middle_frame run data get storage scrfx:running_screen_effects "$(player_id)".middle.frame
+    $execute if data storage scrfx:running_screen_effects "$(player_id)".end.callback run scoreboard players set @s scrfx.zinternals.player.has_end_callback 1
 
     scoreboard players operation @s scrfx.zinternals.player.title_time = @s scrfx.zinternals.player.tps
     $execute store result storage scrfx:running_screen_effects "$(player_id)".title_time int 1 run scoreboard players add @s scrfx.zinternals.player.title_time 2
@@ -47,6 +60,8 @@ function scrfx:zinternals/clear_running_screen_effect:
     scoreboard players reset @s scrfx.zinternals.player.current_frame
     scoreboard players reset @s scrfx.zinternals.player.ticks_left
     scoreboard players reset @s scrfx.zinternals.player.title_time
+    scoreboard players reset @s scrfx.zinternals.player.middle_frame
+    scoreboard players reset @s scrfx.zinternals.player.has_end_callback
 
     $data remove storage scrfx:running_screen_effects "$(player_id)"
 
@@ -64,3 +79,11 @@ function scrfx:zinternals/show_title/get_current_frame_data:
 
 function scrfx:zinternals/show_title/display:
     $title @s title {"text":"\uE000","font":"$(path)$(frame)","shadow_color":[0f,0f,0f,0f]}
+
+function scrfx:zinternals/run_callback:
+    $execute unless data storage scrfx:running_screen_effects "$(player_id)".$(frame).callback run return run function scrfx:zinternals/errors/callback_not_found with storage scrfx:zinternals temp.to_run_callback
+    $data modify storage scrfx:zinternals temp.to_run_callback.command set from storage scrfx:running_screen_effects "$(player_id)".$(frame).callback
+    function scrfx:zinternals/run_callback/run_command with storage scrfx:zinternals temp.to_run_callback
+
+function scrfx:zinternals/run_callback/run_command:
+    $$(command)
