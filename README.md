@@ -3,16 +3,8 @@
 # ScreenEffects by Trplnr
 A small flexible library for showing animated screen overlays to the user.
 
-### Download the datapack!
+### Download the datapack and resource pack!
 <a href="https://modrinth.com/datapack/screeneffects">
-    <img width="300" src="./repository/images/download-on-modrinth.png">
-</a>
-<a href="https://smithed.net/packs/screeneffects">
-    <img width="300" src="./repository/images/download-on-smithed.png">
-</a>
-
-### Download the resource pack!
-<a href="https://modrinth.com/resourcepack/screeneffects-resource-pack">
     <img width="300" src="./repository/images/download-on-modrinth.png">
 </a>
 <a href="https://smithed.net/packs/screeneffects">
