@@ -38,6 +38,7 @@ A small flexible library for showing animated screen overlays to the user.
 - Start by creating an animation.
 
 <img align="center" src="./repository/images/making-screen-effects-step1-img1.png">
+
 - Export your animation into a **vertical** spritesheet inside the `screen_effects` folder.
 
 <img align="center" src="./repository/images/making-screen-effects-step1-img2.png">
