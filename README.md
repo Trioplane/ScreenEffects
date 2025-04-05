@@ -20,6 +20,7 @@ A small flexible library for showing animated screen overlays to the user.
 </a>
 
 ## Examples:
+- This is a YouTube video, click to play.
 [![Watch the video](https://img.youtube.com/vi/J5cWNG-nL1w/maxresdefault.jpg)](https://youtu.be/J5cWNG-nL1w)
 
 ## How to use:
