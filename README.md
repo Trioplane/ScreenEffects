@@ -42,12 +42,17 @@ A small flexible library for showing animated screen overlays to the user.
 ```js
 // -------------CONFIGS---------------
 // Replace with the namespace you use!
-const NAMESPACE = "trplnr";
+const NAMESPACE = "example";
+
+// This logs what the builder is currently doing.
+// If compiling is taking a while, disabling this will improve compilation time.
+const debugMode = false;
 
 // If you want the font JSON files to be formatted, make this boolean true.
 const prettyPrintFontFiles = false;
 
 // If you want to see the ffmpeg logs, make this boolean true.
+// If compiling is taking a while, disabling this will improve compilation time.
 const showFFMPEGLogs = false;
 // -----------------------------------
 ```
@@ -62,6 +67,8 @@ const showFFMPEGLogs = false;
 <img align="center" src="./repository/images/making-screen-effects-step1-img4.png">
 
 - Congrats! You've successfully turned your wonderful animations into frames! :tada:
+
+- If you only want to to compile 1 spritesheet, simply run `deno run --allow-all .\buildScreenEffects.js <REPLACE WITH FILENAME including .png>`
 
 ### Registering the Screen Effects
 - The screen effect registry is inside the `scrfx:registry` .mcfunction file.
@@ -83,9 +90,9 @@ const showFFMPEGLogs = false;
   * `"ns:identifier"` - The identifier of the screen effect, the namespace is optional but recommended to be compatible with other packs.
   * `tps` - The frametime / fps of the screen effect, but in ticks. (1 second = 20 ticks)
   * `frame_count` - How much frames the screen effect has.
-  * `middle.frame` - Points to what frame the declared 'middle' is. This is useful for transition animations like tping the player when the screen is fully covered.
-  * `middle.callback` - The command to run when the 'middle' frame is ran.
-  * `end.callback` - The command to run when the 'end' frame is ran. This does not have a 'frame' property, this already runs once the animation ends.
+  * `middle.frame (optional)` - Points to what frame the declared 'middle' is. This is useful for transition animations like tping the player when the screen is fully covered.
+  * `middle.callback (optional)` - The command to run when the 'middle' frame is ran.
+  * `end.callback (optional)` - The command to run when the 'end' frame is ran. This does not have a 'frame' property, this already runs once the animation ends.
   * `path` - The resource path of the font file with the number at the end omitted.
 
 > [!TIP]
