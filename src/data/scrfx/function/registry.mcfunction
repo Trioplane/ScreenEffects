@@ -18,4 +18,5 @@ data modify storage scrfx:registry screen_effects merge value { \
     "examples:amongus": { tps: 1, frame_count: 24, middle: { frame: 12, callback: "kill @s" }, path: "example:scrfx/exampleamongus" }, \
     "examples:draw_transition": { tps: 1, frame_count: 19, path: "example:scrfx/draw_transition" }, \
     "examples:trophy": {tps: 1, frame_count: 46, path: "example:scrfx/exampletrophy"}, \
+    "examples:transition": {tps: 1, frame_count: 69, middle: { frame: 26, callback: "execute at @s run tp @s -26 57 19" }, path: "example:scrfx/exampletransition"}, \
 }
