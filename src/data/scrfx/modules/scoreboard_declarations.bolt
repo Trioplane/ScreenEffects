@@ -10,3 +10,4 @@ function scrfx:zinternals/initialize/scoreboards:
     scoreboard objectives add scrfx.zinternals.player.title_time dummy
     scoreboard objectives add scrfx.zinternals.player.middle_frame dummy
     scoreboard objectives add scrfx.zinternals.player.has_end_callback dummy
+    scoreboard objectives add scrfx.zinternals.player.left_game minecraft.custom:minecraft.leave_game
