@@ -1,7 +1,7 @@
 {
     "name": "ScreenEffects",
     "description": "A small flexible library for showing animated screen overlays to the user.",
-    "version": "v1.1.3",
+    "version": "v1.1.4",
     "author": "Trplnr",
     "require": ["bolt"],
     "data_pack": {
@@ -9,8 +9,12 @@
       "pack_format": 71,
       "overlays": [
         {
-          "directory": "overlay_1.21.1to4",
-          "formats": { "min_inclusive": 48, "max_inclusive": 61 }
+          "directory": "overlay_1.21.1",
+          "formats": { "min_inclusive": 48, "max_inclusive": 48 }
+        },
+        {
+          "directory": "overlay_1.21.2to4",
+          "formats": { "min_inclusive": 57, "max_inclusive": 61 }
         }
       ]
     },
@@ -19,8 +23,12 @@
       "pack_format": 55,
       "overlays": [
         {
-          "directory": "overlay_1.21.1to4",
-          "formats": { "min_inclusive": 34, "max_inclusive": 46 }
+          "directory": "overlay_1.21.1",
+          "formats": { "min_inclusive": 34, "max_inclusive": 34 }
+        },
+        {
+          "directory": "overlay_1.21.2to4",
+          "formats": { "min_inclusive": 42, "max_inclusive": 46 }
         }
       ]
     },

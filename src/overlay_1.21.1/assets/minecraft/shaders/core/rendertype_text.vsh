@@ -39,7 +39,7 @@ void main() {
     texCoord0 = UV0;
 
     if (id >= 4.0 && id <= 5.0) {
-        if (Position.z == 2400.0) { gl_Position = vec4(2, 2, 2, 1); }
+        if (Position.z == 2400.12) { gl_Position = vec4(2, 2, 1, 1); }
         float aspect = ScreenSize.x / ScreenSize.y;
         vec2 corner = corners[gl_VertexID % 4];
         vec2 scaled = (corner * 2.0 - 1.0) * vec2(1.0, aspect);
