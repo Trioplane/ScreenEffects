@@ -38,8 +38,8 @@ void main() {
     vertexColor = Color * texelFetch(Sampler2, UV2 / 16, 0);
     texCoord0 = UV0;
 
-    if (id >= 0.99) {
-        if (Position.z == 2400.0) { gl_Position = vec4(2, 2, 2, 1) }
+    if (id >= 4.0 && id <= 5.0) {
+        if (Position.z == 2400.0) { gl_Position = vec4(2, 2, 2, 1); }
         float aspect = ScreenSize.x / ScreenSize.y;
         vec2 corner = corners[gl_VertexID % 4];
         vec2 scaled = (corner * 2.0 - 1.0) * vec2(1.0, aspect);
