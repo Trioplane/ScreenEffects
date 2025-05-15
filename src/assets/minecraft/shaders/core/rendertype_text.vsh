@@ -18,7 +18,6 @@ out float vertexDistance;
 out vec4 vertexColor;
 out vec2 texCoord0;
 
-// look at this
 vec2[] corners = vec2[](
   vec2(0.0, 1.0),
   vec2(0.0, 0.0),
