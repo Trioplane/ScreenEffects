@@ -1,28 +1,31 @@
 <img align="center" src="./repository/images/screen-effects-banner.png">
 
-# ScreenEffects by Trplnr
-A small flexible library for showing animated screen overlays to the user.
+# <p align=center>ScreenEffects by Trplnr</p>
+> <p align=center>A small flexible library for showing animated screen overlays to the user.</p>
 
-### Download the datapack and resource pack!
+### <p align=center>Download the datapack and resource pack!</p>
 <a href="https://modrinth.com/datapack/screeneffects">
-    <img width="300" src="./repository/images/download-on-modrinth.png">
+    <img align="center" width="300" src="./repository/images/download-on-modrinth.png">
 </a>
 <a href="https://smithed.net/packs/screen-effects">
-    <img width="300" src="./repository/images/download-on-smithed.png">
+    <img align="center" width="300" src="./repository/images/download-on-smithed.png">
 </a>
 
-## Examples:
-- This is a YouTube video, click to play.
+## <p align=center>Demo</p>
+> This is a YouTube video, click to play.
+
 [![Watch the video](https://img.youtube.com/vi/J5cWNG-nL1w/maxresdefault.jpg)](https://youtu.be/J5cWNG-nL1w)
 
-## How to use:
+## <p align=center>Usage</p>
 ### Making Screen Effects using the builder Deno file:
 
-> [!NOTE]
+> [!IMPORTANT]
 > Using this method requires the following to be installed in your system: [Deno](https://deno.land/), [ffmpeg](https://ffmpeg.org/). After getting those, restart your computer.
 
-- A screen effect is composed of multiple font frames that the datapack uses to show the animation.
-- A **utility Deno JS file is provided** with the resource pack inside the `screen_effects` folder to make this process easier.
+A screen effect is composed of multiple font frames that the datapack uses to show the animation.
+
+A **utility Deno JS file is provided** with the resource pack inside the `screen_effects` folder to make this process easier.
+
 #### 1. Making the animation
 > [!NOTE]
 > - You can use any image editing software you like as long as it can **export your animation into a spritesheet**. [Aseprite](https://www.aseprite.org/) has this functionality.
@@ -31,9 +34,15 @@ A small flexible library for showing animated screen overlays to the user.
 
 <img align="center" src="./repository/images/making-screen-effects-step1-img1.png">
 
+<br>
+
 - Export your animation into a **vertical** spritesheet inside the `screen_effects` folder.
 
+<br>
+
 <img align="center" src="./repository/images/making-screen-effects-step1-img2.png">
+
+<br>
 
 - You can add more spritesheets inside the `screen_effects` folder if you want more screen effects.
 
@@ -58,7 +67,10 @@ const showFFMPEGLogs = false;
 ```
 - To make your amazing animations usable by the datapack, You can run a command in your terminal to convert your spritesheets into frames!
 - Open your preferred terminal and **make sure you are inside the `screen_effects` folder**.
-- After that, run this command `deno run --allow-all .\buildScreenEffects.js`
+- After that, run this command 
+```sh
+deno run --allow-all .\buildScreenEffects.js
+```
 
 <img align="center" src="./repository/images/making-screen-effects-step1-img3.png">
 
@@ -68,43 +80,94 @@ const showFFMPEGLogs = false;
 
 - Congrats! You've successfully turned your wonderful animations into frames! :tada:
 
-- If you only want to to compile 1 spritesheet, simply run `deno run --allow-all .\buildScreenEffects.js <REPLACE WITH FILENAME including .png>`
-
+- If you only want to to compile 1 spritesheet, simply run 
+```sh
+deno run --allow-all .\buildScreenEffects.js filename.png
+```
+---
 ### Registering the Screen Effects
-- The screen effect registry is inside the `scrfx:registry` .mcfunction file.
-- It declares what screen effects are available and what their properties are.
-- A screen effect inside the registry looks like this:
-```js
-"ns:identifier": {
-    tps: positive integer,
-    frame_count: positive integer,
-    middle: {
-        frame: positive_integer below or equal to frame_count,
-        callback: command
-    },
-    end: { callback: command },
-    path: resource path.
+
+The datapack needs to have data to know what a screen effect is so you have to register it.
+
+Here is an example on how you can register one.
+
+> ScreenEffect schema shown below this section.
+```mcfunction
+# To add your own screen effects to the global registry,
+# simply copy what is shown here.
+ 
+data modify storage example:scrfx_data screen_effects set value { \
+   "examples:toast": { \
+        tps: 1, \
+        frame_count: 31, \
+        path: "example:scrfx/exampletoast" \
+    }, \
+   "examples:transition": { \
+        tps: 1, \
+        frame_count: 69, \
+        path: "example:scrfx/exampletransition", \
+        callbacks: { \
+            "26": "say This frame covers the whole screen" \
+        } \
+    }, \
+}
+
+function scrfx:add_screen_effects {storage: "example:scrfx_data", path: "screen_effects"}
+```
+
+### The ScreenEffect Schema
+
+This is the definition of a ScreenEffect.
+
+```ts
+{
+    /**
+     * The name of the screen effect, 
+     * preferrably namespaced.
+     */
+    "ns:identifier": {
+        /**
+         * How fast each frame 
+         * shows up measured in ticks.
+         * 
+         * Just like fps but well in ticks.
+         * 
+         * Must be above zero.
+         */
+        tps: <int>,
+
+        /**
+         * How many frames are in the animation.
+         */
+        frame_count: <int>,
+
+        /**
+         * The font resource location 
+         * of the animation with the 
+         * number at the end removed.
+         */
+        path: <resource_location>,
+        /**
+         * Defines what commands run in a certain frame.
+         * 
+         * Optional.
+         */
+        callback?: {
+            "<frame_number>": "<command>",
+            ...
+        }
+    }
 }
 ```
-- Properties:
-  * `"ns:identifier"` - The identifier of the screen effect, the namespace is optional but recommended to be compatible with other packs.
-  * `tps` - The frametime / fps of the screen effect, but in ticks. (1 second = 20 ticks)
-  * `frame_count` - How much frames the screen effect has.
-  * `middle.frame (optional)` - Points to what frame the declared 'middle' is. This is useful for transition animations like tping the player when the screen is fully covered.
-  * `middle.callback (optional)` - The command to run when the 'middle' frame is ran.
-  * `end.callback (optional)` - The command to run when the 'end' frame is ran. This does not have a 'frame' property, this already runs once the animation ends.
-  * `path` - The resource path of the font file with the number at the end omitted.
-
-> [!TIP]
-> When in development, you can turn on development mode using a scoreboard value so the registry always gets reloaded when doing `/reload`.
-> Simply run `scoreboard players set .dev_mode scrfx.zinternals.globals 1` to turn this on.
 
 ### Running the Screen Effects
 - Declare the animation to be played inside the `scrfx:in id` storage.
 - Then execute as a player and run `scrfx:play`!
-- Example:
+
+> Example:
 ```mcfunction
 data modify storage scrfx:in id set value "ns:identifier"
 execute as Trplnr run function scrfx:play
 ```
+
 - You have successfully played a screen effect! :tada:
