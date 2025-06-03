@@ -4,11 +4,11 @@
 > <p align=center>A small flexible library for showing animated screen overlays to the user.</p>
 
 ### <p align=center>Download the datapack and resource pack!</p>
-<a href="https://modrinth.com/datapack/screeneffects">
-    <img align="center" width="300" src="./repository/images/download-on-modrinth.png">
+<a align="center" href="https://modrinth.com/datapack/screeneffects">
+    <img width="300" src="./repository/images/download-on-modrinth.png">
 </a>
-<a href="https://smithed.net/packs/screen-effects">
-    <img align="center" width="300" src="./repository/images/download-on-smithed.png">
+<a align="center" href="https://smithed.net/packs/screen-effects">
+    <img width="300" src="./repository/images/download-on-smithed.png">
 </a>
 
 ## <p align=center>Demo</p>
