@@ -1,22 +1,25 @@
 <img align="center" src="./repository/images/screen-effects-banner.png">
 
-# <p align=center>ScreenEffects by Trplnr</p>
-> <p align=center>A small flexible library for showing animated screen overlays to the user.</p>
+# <p align="center">ScreenEffects by Trplnr</p>
+> <p align="center">A small flexible library for showing animated screen overlays to the user.</p>
 
-### <p align=center>Download the datapack and resource pack!</p>
-<a align="center" href="https://modrinth.com/datapack/screeneffects">
-    <img width="300" src="./repository/images/download-on-modrinth.png">
-</a>
-<a align="center" href="https://smithed.net/packs/screen-effects">
-    <img width="300" src="./repository/images/download-on-smithed.png">
-</a>
+### <p align="center">Download the datapack and resource pack!</p>
 
-## <p align=center>Demo</p>
+<p align="center">
+    <a href="https://modrinth.com/datapack/screeneffects">
+        <img width="300" src="./repository/images/download-on-modrinth.png">
+    </a>
+    <a href="https://smithed.net/packs/screen-effects">
+        <img width="300" src="./repository/images/download-on-smithed.png">
+    </a>
+</p>
+
+## <p align="center">Demo</p>
 > This is a YouTube video, click to play.
 
 [![Watch the video](https://img.youtube.com/vi/J5cWNG-nL1w/maxresdefault.jpg)](https://youtu.be/J5cWNG-nL1w)
 
-## <p align=center>Usage</p>
+## <p align="center">Usage</p>
 ### Making Screen Effects using the builder Deno file:
 
 > [!IMPORTANT]
