@@ -1,7 +1,7 @@
 {
     "name": "ScreenEffects",
     "description": "A small flexible library for showing animated screen overlays to the user.",
-    "version": "v1.1.4",
+    "version": "v1.2",
     "author": "Trplnr",
     "require": ["bolt"],
     "data_pack": {
@@ -35,6 +35,6 @@
     "pipeline": ["mecha"],
     "output": "./build",
     "meta": {
-      "bolt": {"entrypoint": "scrfx:*"}
+      "bolt": {"entrypoint": ["scrfx:*", "example:*"]}
     }
 }
