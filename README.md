@@ -155,7 +155,7 @@ This is the definition of a ScreenEffect.
          * 
          * Optional.
          */
-        callback?: {
+        callbacks?: {
             "<frame_number>": "<command>",
             ...
         }
