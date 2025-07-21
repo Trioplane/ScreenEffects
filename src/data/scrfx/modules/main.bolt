@@ -1,6 +1,21 @@
 function scrfx:zinternals/load:
     function scrfx:zinternals/initialize/scoreboards
-    execute if score .dev_mode scrfx.zinternals.globals matches 1 run say Reloaded.
+
+    execute unless score .disable_reload_message scrfx.zinternals.globals matches 1:
+        tellraw @a [
+            {text: "\n"},
+            [
+                {text: "    "},
+                {text: "ScreenEffects", bold: true, color: "light_purple"}, 
+                {text: " has loaded. ", bold: false, color: "green"},
+            ],
+            [
+                {text: "\n    "},
+                {text: "ʙʏ ᴛʀᴘʟɴʀ ", color: "gray", bold: false, click_event: {action: "open_url", url:"https://modrinth.com/user/Trplnr"}},
+                {text: "(v1.3)", color: "gray"}, 
+            ],
+            {text: "\n"},
+        ]
 
 function scrfx:zinternals/tick:
     # REJOIN
@@ -47,7 +62,7 @@ function scrfx:zinternals/set_running_screen_effect:
     $execute if data storage scrfx:running_screen_effects running."$(player_id)".callbacks run scoreboard players set @s scrfx.zinternals.player.has_callbacks 1
 
     scoreboard players operation @s scrfx.zinternals.player.title_time = @s scrfx.zinternals.player.tps
-    $execute store result storage scrfx:running_screen_effects running."$(player_id)".title_time int 1 run scoreboard players add @s scrfx.zinternals.player.title_time 2
+    $execute store result storage scrfx:running_screen_effects running."$(player_id)".title_time int 1 run scoreboard players add @s scrfx.zinternals.player.title_time 4
     scoreboard players set @s scrfx.zinternals.player.ticks_left 0
     
     $function scrfx:zinternals/set_title_time with storage scrfx:running_screen_effects running."$(player_id)"
