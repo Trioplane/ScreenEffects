@@ -11,8 +11,12 @@ function scrfx:zinternals/load:
             ],
             [
                 {text: "\n    "},
-                {text: "ʙʏ ᴛʀᴘʟɴʀ ", color: "gray", bold: false, click_event: {action: "open_url", url:"https://modrinth.com/user/Trplnr"}},
-                {text: "(v1.3)", color: "gray"}, 
+                {text: "ʙʏ ᴛʀᴘʟɴʀ ", color: "gray", click_event: {action: "open_url", url:"https://modrinth.com/user/Trplnr"}},
+                {text: f"({ctx.project_version})", color: "gray"}, 
+            ],
+            [
+                {text: "\n    "},
+                {text: "Click me to disable this message.", color: "gray", italic: true, click_event: {action: "run_command", command:"/scoreboard players set .disable_reload_message scrfx.zinternals.globals 1"}},
             ],
             {text: "\n"},
         ]
