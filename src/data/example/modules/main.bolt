@@ -4,26 +4,30 @@ function example:load:
     raw f"# You can remove the example files to save space."
     raw f" "
 
-    raw f"data modify storage example:scrfx_data screen_effects set value {{ \\"
-    raw f"   \"examples:toast\": {{ \\"
+    raw f"data modify storage example:scrfx_data screen_effects set value [ \\"
+    raw f"    {{ \\"
+    raw f"        name: \"examples:toast\", \\" 
     raw f"        tps: 1, \\"
     raw f"        frame_count: 31, \\"
     raw f"        path: \"example:scrfx/exampletoast\" \\"
     raw f"    }}, \\"
-    raw f"   \"examples:amongus\": {{ \\"
+    raw f"    {{ \\"
+    raw f"        name: \"examples:amongus\", \\"
     raw f"        tps: 1, \\"
     raw f"        frame_count: 24, \\"
     raw f"        path: \"example:scrfx/exampleamongus\", \\"
     raw f"        callbacks: {{ \\"
-    raw f"            \"12\": \"kill @s\" \\"
+    raw f"            \"12\": \"say die\" \\"
     raw f"        }} \\"
     raw f"    }}, \\"
-    raw f"   \"examples:trophy\": {{ \\"
+    raw f"    {{ \\"
+    raw f"        name: \"examples:trophy\", \\"
     raw f"        tps: 1, \\"
     raw f"        frame_count: 46, \\"
     raw f"        path: \"example:scrfx/exampletrophy\" \\"
     raw f"    }}, \\"
-    raw f"   \"examples:transition\": {{ \\"
+    raw f"    {{ \\"
+    raw f"        name: \"examples:transition\", \\"
     raw f"        tps: 1, \\"
     raw f"        frame_count: 69, \\"
     raw f"        path: \"example:scrfx/exampletransition\", \\"
@@ -31,9 +35,9 @@ function example:load:
     raw f"            \"26\": \"say This frame covers the whole screen\" \\"
     raw f"        }} \\"
     raw f"    }}, \\"
-    raw f"}}"
+    raw f"]"
 
-    function scrfx:add_screen_effects { storage: "example:scrfx_data", path: "screen_effects" }
+    function scrfx:api/register_screen_effect/register_group { storage: "example:scrfx_data", path: "screen_effects" }
 
 append function_tag minecraft:load {
     "replace": false,

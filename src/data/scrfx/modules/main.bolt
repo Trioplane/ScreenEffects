@@ -16,7 +16,7 @@ function scrfx:zinternals/load:
             ],
             [
                 {text: "\n    "},
-                {text: "Click me to disable this message.", color: "gray", italic: true, click_event: {action: "run_command", command:"/scoreboard players set .disable_reload_message scrfx.zinternals.globals 1"}},
+                {text: "Click me to disable debug messages.", color: "gray", italic: true, click_event: {action: "run_command", command:"/scoreboard players set .disable_reload_message scrfx.zinternals.globals 1"}},
             ],
             {text: "\n"},
         ]
@@ -58,7 +58,7 @@ function scrfx:play:
     scoreboard players set @s scrfx.zinternals.player.is_running_screen_effect 1
 
 function scrfx:zinternals/set_running_screen_effect:
-    $execute unless data storage scrfx:registry screen_effects."$(screen_effect_id)" run return run function scrfx:zinternals/errors/screen_effect_not_found {id: "$(screen_effect_id)"}
+    $execute unless data storage scrfx:registry screen_effects."$(screen_effect_id)" run return run function scrfx:zinternals/messages/screen_effect_not_found {id: "$(screen_effect_id)"}
 
     $data modify storage scrfx:running_screen_effects running."$(player_id)" set from storage scrfx:registry screen_effects."$(screen_effect_id)"
     $execute store result score @s scrfx.zinternals.player.tps run data get storage scrfx:running_screen_effects running."$(player_id)".tps

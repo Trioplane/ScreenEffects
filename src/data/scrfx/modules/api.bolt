@@ -1,0 +1,27 @@
+function scrfx:api/register_screen_effect/register_group:
+    $execute unless data storage $(storage) $(path) run return run function scrfx:zinternals/messages/failed_to_register_screen_effect_group {storage: "$(storage)", path: "$(path)"}
+    $data modify storage scrfx:zinternals temp.register_screen_effect.screen_effect_group set from storage $(storage) $(path)
+    $data modify storage scrfx:zinternals temp.register_screen_effect.group set value {storage: "$(storage)", path: "$(path)"}
+    function scrfx:zinternals/register_screen_effect/iterate
+    tellraw @a {text: "Click me to disable ScreenEffects debug messages.", color: "gray", italic: true, click_event: {action: "run_command", command:"/scoreboard players set .disable_reload_message scrfx.zinternals.globals 1"}}
+
+function scrfx:api/register_screen_effect/register_definition:
+    $execute unless data storage $(storage) $(path) run return run function scrfx:zinternals/messages/failed_to_register_screen_effect_definition {storage: "$(storage)", path: "$(path)"}
+    $data modify storage scrfx:zinternals temp.register_screen_effect.screen_effect set from storage $(storage) $(path)
+    $function scrfx:zinternals/register_screen_effect/register with storage $(storage) $(path)
+
+function scrfx:zinternals/register_screen_effect/iterate:
+    execute unless data storage scrfx:zinternals temp.register_screen_effect.screen_effect_group[0] run return run \
+        execute unless score .disable_reload_message scrfx.zinternals.globals matches 1 run function scrfx:zinternals/messages/finished_registering_screen_effect_group with storage scrfx:zinternals temp.register_screen_effect.group
+
+    data modify storage scrfx:zinternals temp.register_screen_effect.screen_effect set from storage scrfx:zinternals temp.register_screen_effect.screen_effect_group[0]
+    function scrfx:zinternals/register_screen_effect/register with storage scrfx:zinternals temp.register_screen_effect.screen_effect_group[0]
+    data remove storage scrfx:zinternals temp.register_screen_effect.screen_effect_group[0]
+
+    function scrfx:zinternals/register_screen_effect/iterate
+
+function scrfx:zinternals/register_screen_effect/register:
+    $data modify storage scrfx:registry screen_effects."$(name)" set from storage scrfx:zinternals temp.register_screen_effect.screen_effect
+    $data remove storage scrfx:registry screen_effects."$(name)".name
+
+    $function scrfx:zinternals/messages/finished_registering_screen_effect_definition {name: "$(name)"}

@@ -1,0 +1,65 @@
+SCREEN_EFFECTS = [{text: "[", color: "gray"}, {text: "ScreenEffects", color:"gold"}, {text: "] ", color: "gray"}]
+ERROR_TEMPLATE = {
+    no_padding: [
+        {text:"\n"},
+        *SCREEN_EFFECTS,
+        {text:"ERROR ",color:"dark_red",underlined:True},
+        {text:"->",color:"red",underlined:False},
+    ],
+    with_padding: [
+        *SCREEN_EFFECTS,
+        {text:"ERROR ",color:"dark_red",underlined:True},
+        {text:"->",color:"red",underlined:False},
+    ]
+}
+SUCCESS_TEMPLATE = {
+    no_padding: [
+        *SCREEN_EFFECTS,
+        {text:"->",color:"green"},
+    ],
+    with_padding: [
+        {text:"\n"},
+        *SCREEN_EFFECTS,
+        {text:"->",color:"green"},
+    ]
+}
+
+
+function scrfx:zinternals/messages/screen_effect_not_found:
+    tellraw @a ERROR_TEMPLATE.with_padding
+    $tellraw @a [ \
+        {"text":"Screen effect '$(id)' does not exist. Did you add the screen effect using the 'scrfx:add_screen_effects' function yet?","color":"red"}, \
+        {"text":"\n"} \
+    ]
+    return fail
+
+function scrfx:zinternals/messages/failed_to_register_screen_effect_definition:
+    tellraw @a ERROR_TEMPLATE.no_padding
+    $tellraw @a [ \
+        {"text":"Could not find and register screen effect '$(path)' from storage '$(storage)'.","color":"red"}, \
+        {"text":"\n"} \
+    ]
+    return fail
+
+function scrfx:zinternals/messages/failed_to_register_screen_effect_group:
+    tellraw @a ERROR_TEMPLATE.no_padding
+    $tellraw @a [ \
+        {"text":"Could not find and register screen effect group '$(path)' from storage '$(storage)'.","color":"red"}, \
+        {"text":"\n"} \
+    ]
+    return fail
+
+function scrfx:zinternals/messages/finished_registering_screen_effect_group:
+    tellraw @a SUCCESS_TEMPLATE.with_padding
+    $tellraw @a [ \
+        {"text":"Finished registering screen effect group '$(path)' from storage '$(storage)'","color":"green"}, \
+        {"text":"\n"} \
+    ]
+    return 1
+
+function scrfx:zinternals/messages/finished_registering_screen_effect_definition:
+    tellraw @a SUCCESS_TEMPLATE.no_padding
+    $tellraw @a [ \
+        {"text":"Registered screen effect definition '$(name)'","color":"green"}, \
+    ]
+    return 1

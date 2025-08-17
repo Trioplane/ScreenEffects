@@ -99,13 +99,15 @@ Here is an example on how you can register one.
 # To add your own screen effects to the global registry,
 # simply copy what is shown here.
  
-data modify storage example:scrfx_data screen_effects set value { \
-   "examples:toast": { \
+data modify storage example:scrfx_data screen_effects set value [ \
+    { \
+        name: "examples:toast", \
         tps: 1, \
         frame_count: 31, \
         path: "example:scrfx/exampletoast" \
     }, \
-   "examples:transition": { \
+    { \
+        name: "examples:transition", \
         tps: 1, \
         frame_count: 69, \
         path: "example:scrfx/exampletransition", \
@@ -113,9 +115,9 @@ data modify storage example:scrfx_data screen_effects set value { \
             "26": "say This frame covers the whole screen" \
         } \
     }, \
-}
+]
 
-function scrfx:add_screen_effects {storage: "example:scrfx_data", path: "screen_effects"}
+function scrfx:api/register_screen_effect/register_group {storage: "example:scrfx_data", path: "screen_effects"}
 ```
 
 ### The ScreenEffect Schema
@@ -123,12 +125,13 @@ function scrfx:add_screen_effects {storage: "example:scrfx_data", path: "screen_
 This is the definition of a ScreenEffect.
 
 ```ts
-{
-    /**
-     * The name of the screen effect, 
-     * preferrably namespaced.
-     */
-    "ns:identifier": {
+[ // A screen effect group is just a list of screen effect definitions.
+    {
+        /**
+        * The name of the screen effect, 
+        * preferrably namespaced.
+        */
+        name: <resource_location>,
         /**
          * How fast each frame 
          * shows up measured in ticks.
@@ -160,7 +163,7 @@ This is the definition of a ScreenEffect.
             ...
         }
     }
-}
+]
 ```
 
 ### Running the Screen Effects
