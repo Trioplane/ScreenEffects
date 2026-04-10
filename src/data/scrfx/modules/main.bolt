@@ -36,26 +36,29 @@ function scrfx:zinternals/tick:
     # TICKING SCREEN EFFECT
     execute as @a if score @s scrfx.zinternals.player.is_running_screen_effect matches 1 run function scrfx:zinternals/tick/tick_screen_effect:
         # ENDING
-        execute if score @s scrfx.zinternals.player.current_frame = @s scrfx.zinternals.player.frame_count run return:
+        execute if score @s scrfx.zinternals.player.current_frame >= @s scrfx.zinternals.player.frame_count run return:
             scoreboard players set @s scrfx.zinternals.player.is_running_screen_effect 0
             execute store result storage scrfx:zinternals temp.clear_running_screen_effect.player_id int 1 run scoreboard players get @s scrfx.zinternals.player_id
             function scrfx:zinternals/clear_running_screen_effect with storage scrfx:zinternals temp.clear_running_screen_effect
 
         # NEXT FRAME
         execute if score @s scrfx.zinternals.player.ticks_left matches 0:
-            function scrfx:zinternals/run_frame
-            
             scoreboard players operation @s scrfx.zinternals.player.ticks_left = @s scrfx.zinternals.player.tps
             scoreboard players add @s scrfx.zinternals.player.current_frame 1
+            
+            function scrfx:zinternals/run_frame
 
         execute if score @s scrfx.zinternals.player.ticks_left matches 1.. run scoreboard players remove @s scrfx.zinternals.player.ticks_left 1
 
 function scrfx:play:
     execute store result storage scrfx:zinternals temp.to_play.player_id int 1 run scoreboard players get @s scrfx.zinternals.player_id
-    data modify storage scrfx:zinternals temp.to_play.screen_effect_id set from storage scrfx:in id
+    function scrfx:zinternals/set_to_play_screen_effect_from_id with storage scrfx:zinternals temp.to_play
     function scrfx:zinternals/clear_running_screen_effect with storage scrfx:zinternals temp.to_play
     function scrfx:zinternals/set_running_screen_effect with storage scrfx:zinternals temp.to_play
     scoreboard players set @s scrfx.zinternals.player.is_running_screen_effect 1
+
+function scrfx:zinternals/set_to_play_screen_effect_from_id:
+    $data modify storage scrfx:zinternals temp.to_play.screen_effect_id set from storage scrfx:in "$(player_id)"
 
 function scrfx:zinternals/set_running_screen_effect:
     $execute unless data storage scrfx:registry screen_effects."$(screen_effect_id)" run return run function scrfx:zinternals/messages/screen_effect_not_found {id: "$(screen_effect_id)"}
@@ -96,12 +99,22 @@ function scrfx:zinternals/set_title_time:
 function scrfx:zinternals/run_frame:
     execute store result storage scrfx:zinternals temp.current_screen_effect_frame.player_id int 1 run scoreboard players get @s scrfx.zinternals.player_id
     function scrfx:zinternals/get_current_frame_data with storage scrfx:zinternals temp.current_screen_effect_frame
-    
-    function scrfx:zinternals/run_frame/display_title with storage scrfx:zinternals temp.current_screen_effect_frame
+
     execute if score @s scrfx.zinternals.player.has_callbacks matches 1 run function scrfx:zinternals/run_frame/run_callback with storage scrfx:zinternals temp.current_screen_effect_frame
+    
+    execute if score @s scrfx.zinternals.player.current_frame matches 0..9 run return run function scrfx:zinternals/run_frame/display_title with storage scrfx:zinternals temp.current_screen_effect_frame
+    execute if score @s scrfx.zinternals.player.current_frame matches 10..99 run return run function scrfx:zinternals/run_frame/display_title_2_digits with storage scrfx:zinternals temp.current_screen_effect_frame
+    execute if score @s scrfx.zinternals.player.current_frame matches 100..999 run return run function scrfx:zinternals/run_frame/display_title_3_digits with storage scrfx:zinternals temp.current_screen_effect_frame
+
 
 function scrfx:zinternals/run_frame/display_title:
-    $title @s title {"text":"\uE000","font":"$(path)$(frame)","shadow_color":[0f,0f,0f,0f]}
+    $title @s title {"text":"\uE00$(frame)","font":"$(path)","shadow_color":[0f,0f,0f,0f]}
+
+function scrfx:zinternals/run_frame/display_title_2_digits:
+    $title @s title {"text":"\uE0$(frame)","font":"$(path)","shadow_color":[0f,0f,0f,0f]}
+
+function scrfx:zinternals/run_frame/display_title_3_digits:
+    $title @s title {"text":"\uE$(frame)","font":"$(path)","shadow_color":[0f,0f,0f,0f]}
 
 function scrfx:zinternals/run_frame/run_callback:
     $$(callback)

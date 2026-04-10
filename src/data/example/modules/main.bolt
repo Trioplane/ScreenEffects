@@ -39,7 +39,7 @@ function example:load:
 
     function scrfx:api/register_screen_effect/register_group { storage: "example:scrfx_data", path: "screen_effects" }
 
-append function_tag minecraft:load {
-    "replace": false,
-    "values": [ "example:load" ]
-}
+# append function_tag minecraft:load {
+#     "replace": false,
+#     "values": [ "example:load" ]
+# }

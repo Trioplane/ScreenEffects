@@ -1,50 +1,23 @@
 {
     "name": "ScreenEffects",
     "description": "A small flexible library for showing animated screen overlays to the user.",
-    "version": "v2.0.1",
+    "version": "v3.0.0-beta",
     "author": "Trplnr",
     "require": ["bolt"],
+    "minecraft": "1.21.10",
     "data_pack": {
       "load": ["./src"],
-      "pack_format": 81,
-      "supported_formats": { "min_inclusive": 81, "max_inclusive": 48 }, 
-      "overlays": [
-        {
-          "directory": "overlay_1.21.1",
-          "formats": { "min_inclusive": 48, "max_inclusive": 48 }
-        },
-        {
-          "directory": "overlay_1.21.2to4",
-          "formats": { "min_inclusive": 57, "max_inclusive": 61 }
-        },
-        {
-          "directory": "overlay_1.21.5",
-          "formats": { "min_inclusive": 71, "max_inclusive": 71 }
-        }
-      ]
+      "min_format": [88,0],
+      "max_format": [88,0]
     },
     "resource_pack": {
       "load": ["./src"],
-      "pack_format": 64,
-      "supported_formats": { "min_inclusive": 64, "max_inclusive": 34 }, 
-      "overlays": [
-        {
-          "directory": "overlay_1.21.1",
-          "formats": { "min_inclusive": 34, "max_inclusive": 34 }
-        },
-        {
-          "directory": "overlay_1.21.2to4",
-          "formats": { "min_inclusive": 42, "max_inclusive": 46 }
-        },
-        {
-          "directory": "overlay_1.21.5",
-          "formats": { "min_inclusive": 55, "max_inclusive": 55 }
-        }
-      ]
+      "min_format": [69,0],
+      "max_format": [69,0]
     },
     "pipeline": ["mecha"],
     "output": "./build",
     "meta": {
-      "bolt": {"entrypoint": ["scrfx:*", "example:*"]}
+      "bolt": {"entrypoint": ["scrfx:*", "example:*", "test:*"]}
     }
 }
